@@ -1,0 +1,21 @@
+{
+  "name": "self-metrics",
+  "description": "",
+  "main": "main.js",
+  "authors": [
+    "kimura.takaumi@gmail.com"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/KimuraTakaumi/self-metrics",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.4.9"
+  }
+}
