@@ -6,10 +6,9 @@ app.controller('ConfigController', function($scope) {
         };
         $scope.init = function () {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'config.json', true);
+            xhr.open('GET', 'data/config.json', true);
             xhr.onreadystatechange = function(){
                 if (xhr.readyState === 4 && xhr.status === 200){
-                    console.log("config test2");
                     console.log(xhr.responseText);
                     var json = JSON.parse(xhr.responseText);
                     $scope.config.user = json.user;

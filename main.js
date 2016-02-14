@@ -24,10 +24,10 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
     var fs = require('fs');
-    fs.readFile('./config.json', 'utf8', function (err, text) {
+    fs.readFile('./data/config.json', 'utf8', function (err, text) {
         config = JSON.parse(text);
 
-        fs.readFile('./items.json', 'utf8', function (err, text) {
+        fs.readFile('./data/items.json', 'utf8', function (err, text) {
             items = JSON.parse(text);
             var Tray = require('tray');
             var Menu = require('menu');
@@ -55,7 +55,7 @@ app.on('ready', function () {
 
                     request.post(options, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
-                            console.log(body.name);
+                            console.log("success");
                         } else {
                             console.log('error: ' + response.statusCode);
                         }
@@ -71,7 +71,22 @@ app.on('ready', function () {
             item = {};
             item["label"] = "日報";
             item["click"] = function () {
+                // Create the browser window.
+                mainWindow = new BrowserWindow({width: 800, height: 600});
 
+                // and load the index.html of the app.
+                mainWindow.loadURL('file://' + __dirname + '/metrics.html');
+
+                // Open the DevTools.
+                //mainWindow.webContents.openDevTools();
+
+                // Emitted when the window is closed.
+                mainWindow.on('closed', function () {
+                    // Dereference the window object, usually you would store windows
+                    // in an array if your app supports multi windows, this is the time
+                    // when you should delete the corresponding element.
+                    mainWindow = null;
+                });
             };
             array.push(item);
             item = {};

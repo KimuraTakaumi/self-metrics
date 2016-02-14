@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MetricsApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+        <title>Metrics</title>
+        <script src="js/angular.js"></script>
+        <script src="js/metrics.js"></script>
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="css/metrics.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    </head>
+    <body ng-controller="MetricsController" ng-init="init()">
+        <div class="container">
+            <h2 class="">日報</h2>
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>項目</th>
+                            <th>時間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in report">
+                            <td>{{x.number}}</td>
+                            <td>{{x.work}}</td>
+                            <td>{{x.time}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-default">send</button>
+        </div>
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>
