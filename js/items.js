@@ -1,0 +1,19 @@
+var main = require("remote").require("./main");
+
+angular.module('ItemsApp', [])
+    .controller('ItemsController', ['$scope',function ($scope) {
+        $scope.items = '';
+
+        $scope.init = function () {
+            var items = main.getItemsData();
+            console.log(items);
+
+            $scope.items = JSON.stringify(items,null, "    ");
+        };
+
+        $scope.onclick = function () {
+            console.log('onclick');
+            var json = JSON.parse($scope.items);
+            main.setItemsData(json);
+        };
+    }]);

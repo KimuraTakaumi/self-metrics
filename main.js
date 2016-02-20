@@ -143,6 +143,14 @@ app.on('ready', function () {
             showWindow('file://' + __dirname + '/config.html');
         };
         array.push(item);
+
+        item = {};
+        item["label"] = "項目設定";
+        item["click"] = function () {
+            showWindow('file://' + __dirname + '/items.html');
+        };
+        array.push(item);
+
         item = {};
         item["type"] = "separator";
         array.push(item);
@@ -170,5 +178,15 @@ exports.setConfigData = function (json) {
         if (error) throw error;
         config = json;
     });
+};
 
+exports.getItemsData = function () {
+    return items;
+};
+
+exports.setItemsData = function (json) {
+    storage.set('items', json, function (error) {
+        if (error) throw error;
+        items = json;
+    });
 };

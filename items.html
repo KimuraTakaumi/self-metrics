@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" ng-app="MetricsApp">
+<html lang="ja" ng-app="ItemsApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
-    <title>Metrics</title>
+    <title>Items</title>
     <script src="js/angular.js"></script>
-    <script src="js/metrics.js"></script>
+    <script src="js/items.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="js/bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -20,30 +20,11 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-controller="MetricsController" ng-init="init()">
+<body ng-controller="ItemsController" ng-init="init()">
 <div class="container">
-    <h2>日報</h2>
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>項目</th>
-                <th>時間</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="x in report">
-                <td>{{x.number}}</td>
-                <td>{{x.work}}</td>
-                <td>{{x.time}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <label>今日の一言</label>
-    <textarea class="form-control" rows="5" id="comment" ng-model="comment"></textarea>
-    <button type="button" class="btn btn-default" ng-click="onclick()">send</button>
+    <h2>項目設定</h2>
+    <textarea class="form-control" rows="20" id="items" ng-model="items"></textarea>
+    <button type="button" class="btn btn-default" ng-click="onclick()">save</button>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
