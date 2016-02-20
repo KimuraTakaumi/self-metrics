@@ -3,12 +3,16 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+var Tray = require('tray');
+var Menu = require('menu');
 var config;
 var items;
 var request = require('request');
 var mainWindow = null;
 const storage = require('electron-json-storage');
+var appIcon = null;
 
+app.dock.hide();
 app.on('window-all-closed', function () {
     if (process.platform != 'darwin') {
         app.quit();
@@ -16,12 +20,15 @@ app.on('window-all-closed', function () {
 });
 
 var showWindow = function (url) {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    if (mainWindow == null) {
+        mainWindow = new BrowserWindow({width: 800, height: 600});
+    }
     mainWindow.loadURL(url);
     //mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function () {
-        mainWindow = null;
+        mainWindow = null
     });
+    mainWindow.show();
 };
 
 var load_config = function (next) {
@@ -109,11 +116,7 @@ var createItem = function (label) {
 
 app.on('ready', function () {
     init(function () {
-        var Tray = require('tray');
-        var Menu = require('menu');
-
-        var appIcon = new Tray(__dirname + '/images/icon.png');
-
+        appIcon = new Tray(__dirname + '/images/icon.png');
         var array = [];
         for (var i = 0; i < items.items.length; i++) {
             var item = createItem(items.items[i]);
@@ -147,6 +150,7 @@ app.on('ready', function () {
         item = {};
         item["label"] = "終了";
         item["click"] = function () {
+            mainWindow = null;
             app.quit();
         };
         array.push(item);
