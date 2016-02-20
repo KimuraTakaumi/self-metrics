@@ -1,27 +1,25 @@
-var app = angular.module('Config', ['ngMaterial', 'ngMessages']);
-app.controller('ConfigController', function($scope) {
-        $scope.config = {
-            user: '',
-            url: ''
-        };
-        $scope.init = function () {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'data/config.json', true);
-            xhr.onreadystatechange = function(){
-                if (xhr.readyState === 4 && xhr.status === 200){
-                    console.log(xhr.responseText);
-                    var json = JSON.parse(xhr.responseText);
-                    $scope.config.user = json.user;
-                    $scope.config.url = json.url;
-                    $scope.$apply();
-                }
-            };
-            xhr.send(null);
-        };
-    })
-    .config(function($mdThemingProvider) {
-        // Configure a dark theme with primary foreground yellow
-        $mdThemingProvider.theme('docs-dark', 'default')
-            .primaryPalette('yellow')
-            .dark();
-    });
+var main = require("remote").require("./main");
+
+var app = angular.module('Config', []);
+app.controller('ConfigController', ['$scope', function ($scope) {
+    $scope.user = '';
+    $scope.url = '';
+    $scope.name = '';
+    $scope.init = function () {
+        var config = main.getConfigData();
+        console.log(config);
+        $scope.user = config.user;
+        $scope.url = config.url;
+        $scope.name = config.name;
+        $scope.$apply();
+    };
+
+    $scope.onclick = function () {
+        console.log('onclick');
+        var json = {};
+        json['user'] = $scope.user;
+        json['url'] = $scope.url;
+        json['name'] = $scope.name;
+        main.setConfigData(json);
+    };
+}]);

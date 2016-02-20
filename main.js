@@ -7,6 +7,7 @@ var config;
 var items;
 var request = require('request');
 var mainWindow = null;
+const storage = require('electron-json-storage');
 
 app.on('window-all-closed', function () {
     if (process.platform != 'darwin') {
@@ -23,15 +24,61 @@ var showWindow = function (url) {
     });
 };
 
-var init = function (next) {
-    var fs = require('fs');
-    fs.readFile('./data/config.json', 'utf8', function (err, text) {
-        config = JSON.parse(text);
-        fs.readFile('./data/items.json', 'utf8', function (err, text) {
-            items = JSON.parse(text);
+var load_config = function (next) {
+    storage.get('config', function (error, data) {
+        if (error) throw error;
+
+        if (Object.keys(data).length === 0) {
+            var json = {
+                user: 'hoge',
+                url: "http://localhost:3000/metrics",
+                name: "hoge太郎"
+            };
+            storage.set('config', json, function (error) {
+                if (error) throw error;
+                config = json;
+                next();
+            });
+        } else {
+            config = data;
             next();
-        });
+        }
     });
+};
+
+var load_items = function (next) {
+    storage.get('items', function (error, data) {
+        if (error) throw error;
+
+        if (Object.keys(data).length === 0) {
+            var json = {
+                "items": [
+                    "AAA/設計",
+                    "AAA/実装",
+                    "AAA/テスト",
+                    "BBB/設計",
+                    "BBB/実装",
+                    "BBB/テスト"
+                ]
+            };
+            storage.set('items', json, function (error) {
+                if (error) throw error;
+                items = json;
+                next();
+            });
+        } else {
+            items = data;
+            next();
+        }
+    });
+};
+
+var init = function (next) {
+    load_config(function () {
+        load_items(function () {
+            next();
+        })
+    })
 };
 
 var createItem = function (label) {
@@ -110,3 +157,14 @@ app.on('ready', function () {
     });
 });
 
+exports.getConfigData = function () {
+    return config;
+};
+
+exports.setConfigData = function (json) {
+    storage.set('config', json, function (error) {
+        if (error) throw error;
+        config = json;
+    });
+
+};
