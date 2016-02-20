@@ -54,5 +54,24 @@ angular.module('MetricsApp', [])
         $scope.onclick = function () {
             console.log('onclick');
             console.log($scope.comment);
+            var config = main.getConfigData();
+            console.log(config);
+            var date = new Date;
+
+            var subject = '【日報】' + config.name + " " + date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+            var to = config.to;
+            var from = config.from;
+            var r = "";
+            for (var i = 0; i < $scope.report.length - 1; i++) {
+                var json = $scope.report[i];
+                r += json.work + " : " + json.time + "\n";
+            }
+            var text = "各位、\n\nお疲れ様です。\n" + config.name + "です。\n\n日報を送ります。\n\n【今日の一言】\n" + $scope.comment + "\n\n【作業項目】\n" + r + "\n\n以上、よろしくお願いいたします。";
+
+            console.log(subject);
+            console.log(to);
+            console.log(from);
+            console.log(text);
+            main.sendMail(subject, to, from, text);
         };
     }]);

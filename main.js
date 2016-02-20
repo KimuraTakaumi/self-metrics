@@ -39,7 +39,9 @@ var load_config = function (next) {
             var json = {
                 user: 'hoge',
                 url: "http://localhost:3000/metrics",
-                name: "hoge太郎"
+                name: "hoge太郎",
+                from: "abcdefg@mail.com",
+                to: "hijklmn@mail.com"
             };
             storage.set('config', json, function (error) {
                 if (error) throw error;
@@ -189,4 +191,11 @@ exports.setItemsData = function (json) {
         if (error) throw error;
         items = json;
     });
+};
+
+exports.sendMail = function (subject, to, from, text) {
+    console.log(subject);
+    console.log(to);
+    console.log(from);
+    console.log(text);
 };
