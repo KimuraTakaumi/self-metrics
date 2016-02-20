@@ -11,6 +11,8 @@ var request = require('request');
 var mainWindow = null;
 const storage = require('electron-json-storage');
 var appIcon = null;
+var nodemailer = require("nodemailer");
+var smtpTransport = require("nodemailer-smtp-transport")
 
 app.dock.hide();
 app.on('window-all-closed', function () {
@@ -198,4 +200,31 @@ exports.sendMail = function (subject, to, from, text) {
     console.log(to);
     console.log(from);
     console.log(text);
+
+    var smtpTransport = nodemailer.createTransport(smtpTransport({
+        host : "xxxxxxx",
+        port: 0,
+        secure: true,
+        auth : {
+            user: "xxxxxxx",
+            pass: "xxxxxxx"
+        }
+    }));
+
+    var mailOptions = {
+        from: from,
+        to: to,
+        subject: subject,
+        text: text
+    };
+
+    //smtpTransport.sendMail(mailOptions, function(error, response){
+    //    if(error){
+    //        console.log(error);
+    //    }else{
+    //        console.log("Message sent: " + response.message);
+    //    }
+    //
+    //    smtpTransport.close();
+    //});
 };
