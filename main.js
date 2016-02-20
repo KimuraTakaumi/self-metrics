@@ -18,7 +18,7 @@ app.on('window-all-closed', function () {
 var showWindow = function (url) {
     mainWindow = new BrowserWindow({width: 800, height: 600});
     mainWindow.loadURL(url);
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
