@@ -43,7 +43,17 @@
     </div>
     <label>今日の一言</label>
     <textarea class="form-control" rows="5" id="comment" ng-model="comment"></textarea>
-    <button type="button" class="btn btn-default" ng-click="onclick()">send</button>
+    <div>
+        <button type="button" class="btn btn-default" ng-click="onclick()" style="margin: 10px">send</button>
+        <button type="button" class="btn btn-default" ng-click="onshow()" style="margin: 10px">show</button>
+    </div>
+    <div ng-show="show">
+        <h3>subject</h3>
+        <div>{{subject}}</div>
+        <h3>text</h3>
+        <textarea class="form-control" rows="5" id="text" ng-model="text"></textarea>
+        <button type="button" class="btn btn-default" ng-click="oncopy()" style="margin: 10px">copy</button>
+    </div>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->

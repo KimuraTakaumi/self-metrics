@@ -4,6 +4,12 @@ angular.module('MetricsApp', [])
     .controller('MetricsController', ['$scope', '$http', function ($scope, $http) {
         $scope.report = [];
         $scope.comment = '';
+        $scope.show = false;
+        $scope.subject = '';
+        $scope.text = '';
+        $scope.from = '';
+        $scope.to = '';
+
         var $uri = 'config.json';
 
         $scope.init = function () {
@@ -51,9 +57,7 @@ angular.module('MetricsApp', [])
 
         };
 
-        $scope.onclick = function () {
-            console.log('onclick');
-            console.log($scope.comment);
+        var createMailMessage = function(){
             var config = main.getConfigData();
             console.log(config);
             var date = new Date;
@@ -72,6 +76,25 @@ angular.module('MetricsApp', [])
             console.log(to);
             console.log(from);
             console.log(text);
-            main.sendMail(subject, to, from, text);
+            $scope.subject = subject;
+            $scope.text = text;
+            $scope.from = subject;
+            $scope.to = to;
+        };
+
+        $scope.onclick = function () {
+            console.log('onclick');
+            console.log($scope.comment);
+            createMailMessage();
+            main.sendMail($scope.subject, $scope.to, $scope.from, $scope.text);
+        };
+
+        $scope.onshow = function () {
+            createMailMessage();
+            $scope.show = true;
+        };
+
+        $scope.oncopy = function () {
+           main.writeClipboard($scope.text);
         };
     }]);

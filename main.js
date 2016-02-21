@@ -12,7 +12,8 @@ var mainWindow = null;
 const storage = require('electron-json-storage');
 var appIcon = null;
 var nodemailer = require("nodemailer");
-var smtpTransport = require("nodemailer-smtp-transport")
+var smtpTransport = require("nodemailer-smtp-transport");
+const clipboard = require('electron').clipboard;
 
 app.dock.hide();
 app.on('window-all-closed', function () {
@@ -227,4 +228,8 @@ exports.sendMail = function (subject, to, from, text) {
     //
     //    smtpTransport.close();
     //});
+};
+
+exports.writeClipboard = function (text) {
+    clipboard.writeText(text);
 };
