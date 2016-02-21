@@ -22,6 +22,9 @@
 </head>
 <body ng-controller="ConfigController" ng-init="init()">
 <div class="container">
+    <div class="alert alert-danger" role="alert" ng-show="show">
+        入力内容が正しくありません。
+    </div>
     <h2>設定</h2>
     <div>
         <label for="user">user:</label>
@@ -30,9 +33,9 @@
         <input type="text" class="form-control" id="url" ng-model="url">
         <label for="name">name:</label>
         <input type="text" class="form-control" id="name" ng-model="name">
-        <label for="name">mail from:</label>
+        <label for="from">mail from:</label>
         <input type="text" class="form-control" id="from" ng-model="from">
-        <label for="name">mail to:</label>
+        <label for="to">mail to:</label>
         <input type="text" class="form-control" id="to" ng-model="to">
     </div>
     <button type="button" class="btn btn-default" ng-click="onclick()">save</button>

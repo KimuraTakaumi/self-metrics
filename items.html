@@ -22,6 +22,9 @@
 </head>
 <body ng-controller="ItemsController" ng-init="init()">
 <div class="container">
+    <div class="alert alert-danger" role="alert" ng-show="show">
+        入力内容が正しくありません。
+    </div>
     <h2>項目設定</h2>
     <textarea class="form-control" rows="20" id="items" ng-model="items"></textarea>
     <button type="button" class="btn btn-default" ng-click="onclick()">save</button>
