@@ -17,7 +17,7 @@ angular.module('MetricsApp', [])
             console.log(config);
 
             var request_day = new Date();
-            var request_url = config.url + '/' + config.user + '/' + request_day.getFullYear() + '/' + (request_day.getMonth() + 1) + '/' + request_day.getDate();
+            var request_url = 'http://' + config.url + '/metrics/' + config.user + '/' + request_day.getFullYear() + '/' + (request_day.getMonth() + 1) + '/' + request_day.getDate();
             console.log(request_url);
             $http({
                 method: 'GET',

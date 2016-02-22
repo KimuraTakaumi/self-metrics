@@ -7,15 +7,16 @@ var Tray = require('tray');
 var Menu = require('menu');
 var config;
 var items;
-var request = require('request');
 var mainWindow = null;
 const storage = require('electron-json-storage');
 var appIcon = null;
 var nodemailer = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
 const clipboard = require('electron').clipboard;
+var http = require('http');
+http.post = require('http-post');
 
-if (process.platform != 'darwin') {
+if (process.platform == 'darwin') {
     app.dock.hide();
 }
 
@@ -104,20 +105,25 @@ var createItem = function (label) {
         json["user"] = config.user;
         json["work"] = label;
 
+        var url = config.url.split(":");
         var options = {
-            url: config.url,
-            headers: {'Content-Type': 'application/json'},
-            json: true,
-            body: json
-        };
-
-        request.post(options, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log("success");
-            } else {
-                console.log('error: ' + response.statusCode);
+            hostname: url[0],
+            port: url[1],
+            path: '/metrics',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': json.length
             }
+        };
+        http.post(options, json, function (res) {
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                console.log(chunk);
+            });
         });
+
+
     };
     return item;
 };
@@ -206,10 +212,10 @@ exports.sendMail = function (subject, to, from, text) {
     console.log(text);
 
     var smtpTransport = nodemailer.createTransport(smtpTransport({
-        host : "xxxxxxx",
+        host: "xxxxxxx",
         port: 0,
         secure: true,
-        auth : {
+        auth: {
             user: "xxxxxxx",
             pass: "xxxxxxx"
         }
