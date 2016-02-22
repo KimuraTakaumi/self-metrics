@@ -45,7 +45,7 @@ var load_config = function (next) {
         if (Object.keys(data).length === 0) {
             var json = {
                 user: 'hoge',
-                url: "http://localhost:3000/metrics",
+                url: "localhost:3000",
                 name: "hoge太郎",
                 from: "abcdefg@mail.com",
                 to: "hijklmn@mail.com"
