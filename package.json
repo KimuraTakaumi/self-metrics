@@ -4,8 +4,9 @@
   "main": "main.js",
   "dependencies": {
     "electron-json-storage": "^1.1.0",
+    "http": "0.0.0",
+    "http-post": "^0.1.1",
     "nodemailer": "^2.2.1",
-    "nodemailer-smtp-transport": "^2.4.1",
-    "request": "^2.69.0"
+    "nodemailer-smtp-transport": "^2.4.1"
   }
 }
