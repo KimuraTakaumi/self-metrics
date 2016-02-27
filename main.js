@@ -21,9 +21,9 @@ if (process.platform == 'darwin') {
 }
 
 app.on('window-all-closed', function () {
-    if (process.platform != 'darwin') {
-        app.quit();
-    }
+    //if (process.platform != 'darwin') {
+    //    app.quit();
+    //}
 });
 
 var showWindow = function (url) {
