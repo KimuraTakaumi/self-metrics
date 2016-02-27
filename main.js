@@ -104,6 +104,7 @@ var createItem = function (label) {
         var json = {};
         json["user"] = config.user;
         json["work"] = label;
+        json["date"] = Date.now();
 
         var url = config.url.split(":");
         var options = {
