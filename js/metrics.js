@@ -9,6 +9,7 @@ angular.module('MetricsApp', [])
         $scope.text = '';
         $scope.from = '';
         $scope.to = '';
+        $scope.work = [];
 
         var $uri = 'config.json';
 
@@ -26,26 +27,27 @@ angular.module('MetricsApp', [])
                 console.log(status);
                 console.log(data);
                 $scope.report = [];
-                var work = [];
+                $scope.work = [];
                 for (var i = 0; i < data.length; i++) {
                     var json = {};
                     json['number'] = i;
                     json['work'] = data[i].work;
                     json['time'] = '';
-                    work[i] = new Date(data[i].date);
-                    console.log(work[i].getTime());
+                    $scope.work[i] = new Date();
+                    $scope.work[i].setTime(data[i].date);
+                    console.log($scope.work[i].getTime());
                     $scope.report.push(json);
                 }
                 var json = {};
                 json['number'] = data.length;
                 json['work'] = '日報';
                 json['time'] = '';
-                work[i] = new Date();
-                console.log(work[i].getTime());
+                $scope.work[i] = new Date();
+                console.log($scope.work[i].getTime());
                 $scope.report.push(json);
 
                 for (i = 0; i < data.length; i++) {
-                    var time = work[i + 1] - work[i];
+                    var time = $scope.work[i + 1] - $scope.work[i];
                     var minutes = Math.round((time / (1000 * 60)) % 60)
                     var hours = Math.round((time / (1000 * 60 * 60)) / 24);
                     $scope.report[i]['time'] = hours + "H " + minutes + "M";
@@ -57,7 +59,7 @@ angular.module('MetricsApp', [])
 
         };
 
-        var createMailMessage = function(){
+        var createMailMessage = function () {
             var config = main.getConfigData();
             console.log(config);
             var date = new Date;
@@ -70,7 +72,8 @@ angular.module('MetricsApp', [])
                 var json = $scope.report[i];
                 r += json.work + " : " + json.time + "\n";
             }
-            var text = "各位、\n\nお疲れ様です。\n" + config.name + "です。\n\n日報を送ります。\n\n【今日の一言】\n" + $scope.comment + "\n\n【作業項目】\n" + r + "\n\n以上、よろしくお願いいたします。";
+            var text = "各位、\n\nお疲れ様です。\n" + config.name + "です。\n\n日報を送ります。\n\n【今日の一言】\n" + $scope.comment + "\n\n【出退勤】\n出勤：" + $scope.work[0] + "\n退勤：" + $scope.work[$scope.work.length - 1]
+                + "\n\n【作業項目】\n" + r + "\n\n以上、よろしくお願いいたします。";
 
             console.log(subject);
             console.log(to);
@@ -95,6 +98,6 @@ angular.module('MetricsApp', [])
         };
 
         $scope.oncopy = function () {
-           main.writeClipboard($scope.text);
+            main.writeClipboard($scope.text);
         };
     }]);

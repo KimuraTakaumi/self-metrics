@@ -101,10 +101,11 @@ var createItem = function (label) {
     var item = {};
     item["label"] = label;
     item["click"] = function () {
+        var time = new Date();
         var json = {};
         json["user"] = config.user;
         json["work"] = label;
-        json["date"] = Date.now();
+        json["date"] = time.getTime();
 
         var url = config.url.split(":");
         var options = {
