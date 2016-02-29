@@ -21,9 +21,9 @@ if (process.platform == 'darwin') {
 }
 
 app.on('window-all-closed', function () {
-    if (process.platform != 'darwin') {
-        app.quit();
-    }
+    //if (process.platform != 'darwin') {
+    //    app.quit();
+    //}
 });
 
 var showWindow = function (url) {
@@ -45,7 +45,7 @@ var load_config = function (next) {
         if (Object.keys(data).length === 0) {
             var json = {
                 user: 'hoge',
-                url: "http://localhost:3000/metrics",
+                url: "localhost:3000",
                 name: "hoge太郎",
                 from: "abcdefg@mail.com",
                 to: "hijklmn@mail.com"
@@ -101,9 +101,11 @@ var createItem = function (label) {
     var item = {};
     item["label"] = label;
     item["click"] = function () {
+        var time = new Date();
         var json = {};
         json["user"] = config.user;
         json["work"] = label;
+        json["date"] = time.getTime();
 
         var url = config.url.split(":");
         var options = {
