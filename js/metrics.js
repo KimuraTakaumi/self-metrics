@@ -72,8 +72,11 @@ angular.module('MetricsApp', [])
                 var json = $scope.report[i];
                 r += json.work + " : " + json.time + "\n";
             }
-            var text = "各位、\n\nお疲れ様です。\n" + config.name + "です。\n\n日報を送ります。\n\n【今日の一言】\n" + $scope.comment + "\n\n【出退勤】\n出勤：" + $scope.work[0] + "\n退勤：" + $scope.work[$scope.work.length - 1]
-                + "\n\n【作業項目】\n" + r + "\n\n以上、よろしくお願いいたします。";
+            var start = $scope.work[0].getHours() + ":" + $scope.work[0].getMinutes();
+            var end = $scope.work[$scope.work.length - 1].getHours() + ":" + $scope.work[$scope.work.length - 1].getMinutes();
+
+            var text = "各位、\n\nお疲れ様です。\n" + config.name + "です。\n\n日報を送ります。\n\n【出退勤】\n出勤：" + start + "\n退勤：" + end
+                + "\n\n【作業項目】\n" + r + "\n【今日の一言】\n" + $scope.comment + "\n\n以上、よろしくお願いいたします。";
 
             console.log(subject);
             console.log(to);
